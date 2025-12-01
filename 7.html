@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>镇江旅游 - 历史文化名城</title>
+    <style>
+        :root {
+            --primary-color: #1e5799;
+            --secondary-color: #207cca;
+            --accent-color: #f5a623;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 15px;
+        }
+        
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            height: 400px;
+            background: url('https://i2.hdslb.com/bfs/archive/c1ec390a8555e94afb63c6e90633a6b656f93bc8.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .content {
+            background-color: white;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin: 10px;
+        }
+        
+        /* 页面切换效果 */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>镇江旅游指南</h1>
+            <p>探索这座历史名城的魅力</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">首页</a></li>
+            <li><a href="#" onclick="showPage('overview')">城市概况</a></li>
+            <li><a href="#" onclick="showPage('attractions')">著名景点</a></li>
+            <li><a href="#" onclick="showPage('culture')">文化特色</a></li>
+            <li><a href="#" onclick="showPage('food')">特色美食</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- 首页 -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h2>欢迎来到镇江</h2>
+                    <p>一座融合历史与现代的美丽城市</p>
+                </div>
+            </div>
+            
+            <div class="content">
+                <h2>发现镇江之美</h2>
+                <p>镇江，这座位于长江与京杭大运河交汇处的历史名城，以其丰富的文化遗产、壮丽的自然风光和独特的美食吸引着来自世界各地的游客。</p>
+                
+                <div class="card-container">
+                    <div class="card">
+                        <img src="https://qcloud.dpfile.com/pc/XqK2GnkUbUsaCXc94mYE4T9mN1WVO7_4M3yey6ZEgHgSGGlMSSgiAwikSXh28Nhx.jpg" alt="城市风光">
+                        <div class="card-content">
+                            <h3>城市概况</h3>
+                            <p>了解镇江的历史、地理和人文特色</p>
+                            <a href="#" onclick="showPage('overview')" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <img src="https://qcloud.dpfile.com/pc/QQOtR3qg03wurfn4CVsB4TzuoSI5DkGi9EUe6fdqXxKpA0NbR3o9Zg6sbnk1iUqR.jpg" alt="金山寺">
+                        <div class="card-content">
+                            <h3>著名景点</h3>
+                            <p>探索镇江的风景名胜和历史遗迹</p>
+                            <a href="#" onclick="showPage('attractions')" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <img src="https://pic.rmb.bdstatic.com/bjh/other/e5f5e04f62075339974e0f0a3571038c.jpeg" alt="香醋">
+                        <div class="card-content">
+                            <h3>文化特色</h3>
+                            <p>体验镇江独特的文化和传统艺术</p>
+                            <a href="#" onclick="showPage('culture')" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <img src="https://miaobi-lite.bj.bcebos.com/miaobi/5mao/b%276ZWH5rGf54uu5a2Q5aS06ZSF55uW6Z2i5Zu%2B54mHXzE3MzQ3Mjg0ODIuMDA2MzQ5Mw%3D%3D%27/0.png" alt="锅盖面">
+                        <div class="card-content">
+                            <h3>特色美食</h3>
+                            <p>品尝镇江的地道美食和特色小吃</p>
+                            <a href="#" onclick="showPage('food')" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 城市概况页面 -->
+        <div id="overview" class="page">
+            <div class="content">
+                <h2>镇江城市概况</h2>
+                <div class="image-container">
+                    <img src="https://img0.baidu.com/it/u=510059595,4269929028&fm=253&app=138&f=JPEG?w=1202&h=800" alt="镇江城市风光">
+                    <p class="image-caption">镇江城市风光</p>
+                </div>
+                <p>镇江位于江苏省西南部，长江下游南岸，是长江与京杭大运河的交汇处，素有"天下第一江山"之美誉。</p>
+                <p>镇江是中国历史文化名城，有着3000多年的历史，是吴文化的重要发祥地之一。</p>
+                <p>全市总面积3847平方公里，常住人口约320万，下辖3个区、3个县级市。</p>
+                <p>镇江气候温和湿润，四季分明，年平均气温15.5℃，年降水量1100毫米左右。</p>
+                <p>镇江交通便利，拥有长江港口、高铁站和高速公路网络，是长三角地区重要的交通枢纽。</p>
+                <a href="#" onclick="showPage('home')" class="btn">返回首页</a>
+            </div>
+        </div>
+        
+        <!-- 著名景点页面 -->
+        <div id="attractions" class="page">
+            <div class="content">
+                <h2>镇江著名景点</h2>
+                
+                <h3>金山寺</h3>
+                <div class="image-container">
+                    <img src="https://pic1.zhimg.com/100/v2-afa98b3f429ce55c66d657e2dd16e5e6_r.jpg" alt="金山寺">
+                    <p class="image-caption">千年古刹金山寺</p>
+                </div>
+                <p>金山寺始建于东晋时期，距今已有1600多年历史，是中国佛教禅宗四大名寺之一。</p>
+                <p>寺内建筑依山而建，层层叠叠，气势恢宏，有"寺裹山"的独特景观。</p>
+                <p>金山寺还是《白蛇传》中法海和尚的修行地，寺内有许多与白娘子传说相关的景点。</p>
+                
+                <h3>北固山</h3>
+                <div class="image-container">
+                    <img src="https://pics3.baidu.com/feed/a8773912b31bb0518c0176f60cdcb6bb4bede079.jpeg@f_auto?token=3b6993da35fd987f51956cb056615c93" alt="北固山">
+                    <p class="image-caption">北固山风景区</p>
+                </div>
+                <p>北固山位于镇江市区东北，临江而立，地势险要，自古为兵家必争之地。</p>
+                <p>山上有甘露寺、多景楼等名胜古迹，还有辛弃疾、陆游等文人墨客留下的诗词碑刻。</p>
+                <p>登临山顶，可俯瞰长江壮丽景色，远眺扬州风光。</p>
+                <a href="#" onclick="showPage('home')" class="btn">返回首页</a>
+            </div>
+        </div>
+        
+        <!-- 文化特色页面 -->
+        <div id="culture" class="page">
+            <div class="content">
+                <h2>镇江文化特色</h2>
+                
+                <h3>镇江香醋</h3>
+                <div class="image-container">
+                    <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.alicdn.com%2Fi3%2F725677994%2FO1CN01VYCh4f28vIv1jRT5F_%21%21725677994.jpg&refer=http%3A%2F%2Fimg.alicdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1766750417&t=962c1eabb3c29f49ef435bd52e970aa4" alt="镇江香醋">
+                    <p class="image-caption">镇江特产香醋</p>
+                </div>
+                <p>镇江香醋是中国四大名醋之一，已有1400多年历史，以色、香、酸、醇、浓五大特色著称。</p>
+                <p>传统镇江香醋采用优质糯米为原料，经过40多道工序，历时半年以上酿制而成。</p>
+                <p>镇江香醋不仅是调味佳品，还具有开胃健脾、消食化积等保健功效。</p>
+                
+                <h3>评话艺术</h3>
+                <div class="image-container">
+                    <img src="https://p6.itc.cn/images01/20220806/20a79336c5c84d30a344db867f6b39b2.jpeg" alt="镇江评话">
+                    <p class="image-caption">镇江评话表演</p>
+                </div>
+                <p>镇江评话是江苏评话的重要流派，以说表细腻、表演生动、语言幽默著称。</p>
+                <p>传统评话书目有《三国》、《水浒》、《岳传》等，表演者一人分饰多角，惟妙惟肖。</p>
+                <p>2008年，镇江评话被列入国家级非物质文化遗产名录。</p>
+                <a href="#" onclick="showPage('home')" class="btn">返回首页</a>
+            </div>
+        </div>
+        
+        <!-- 特色美食页面 -->
+        <div id="food" class="page">
+            <div class="content">
+                <h2>镇江特色美食</h2>
+                
+                <h3>锅盖面</h3>
+                <div class="image-container">
+                    <img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2023%2F1115%2Ffb388e32j00s455wd0026c000u000jgm.jpg&thumbnail=660x2147483647&quality=80&type=jpg" alt="锅盖面">
+                    <p class="image-caption">镇江特色锅盖面</p>
+                </div>
+                <p>锅盖面是镇江最具代表性的传统面食，因面条形似锅盖而得名。</p>
+                <p>面条宽厚筋道，配以特制酱油、猪油、葱花等调料，汤鲜味美，独具风味。</p>
+                <p>镇江有"不到长城非好汉，不吃锅盖面真遗憾"的说法。</p>
+                
+                <h3>肴肉</h3>
+                <div class="image-container">
+                    <img src="https://img1.baidu.com/it/u=3109288060,2737085819&fm=253&app=138&f=JPEG?w=760&h=760" alt="肴肉">
+                    <p class="image-caption">镇江传统肴肉</p>
+                </div>
+                <p>肴肉是镇江传统名菜，已有300多年历史，选用猪前蹄膀精制而成。</p>
+                <p>肴肉色泽红亮，肉质酥烂，味道鲜美，肥而不腻，是镇江宴席上的必备冷盘。</p>
+                <p>食用时佐以镇江香醋和姜丝，风味更佳。</p>
+                <a href="#" onclick="showPage('home')" class="btn">返回首页</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>镇江旅游指南网站致力于推广镇江的旅游资源和文化特色。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#" onclick="showPage('home')" style="color: white;">首页</a></li>
+                        <li><a href="#" onclick="showPage('overview')" style="color: white;">城市概况</a></li>
+                        <li><a href="#" onclick="showPage('attractions')" style="color: white;">著名景点</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <p>邮箱: info@zhenjiang-travel.com</p>
+                    <p>电话: 0511-12345678</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">&copy; 2023 镇江旅游指南 版权所有</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 页面切换函数
+        function showPage(pageId) {
+            // 隐藏所有页面
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 显示选中的页面
+            document.getElementById(pageId).classList.add('active');
+            
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
